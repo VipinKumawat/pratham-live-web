@@ -95,3 +95,16 @@ async function loadApp() {
 }
 
 loadApp();
+// 🗑 Delete product function
+window.deleteProduct = async function (id) {
+  const confirmDelete = confirm("Are you sure you want to delete this product?");
+  if (!confirmDelete) return;
+
+  const { error } = await supabase.from('products').delete().eq('id', id);
+  if (error) {
+    alert('❌ Failed to delete product');
+  } else {
+    alert('✅ Product deleted successfully');
+    loadApp(); // refresh product list
+  }
+};
