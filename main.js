@@ -121,9 +121,15 @@ form.addEventListener('submit', async (e) => {
 // main.js – Part 4 of 4
 
 async function loadApp() {
+  root.innerHTML = `
+    <div class="text-center py-10 text-gray-500 text-lg animate-pulse">
+      🔄 Loading products...
+    </div>
+  `;
+
   const products = await fetchProducts();
   renderProducts(products);
-  renderAdminPanel(); // admin always shown in current version
+  renderAdminPanel();
 }
 
 loadApp();
