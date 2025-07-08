@@ -24,60 +24,62 @@ async function fetchProducts() {
 
 function renderProducts(products) {
   root.innerHTML = `
-  <h1 class="text-3xl font-bold mb-2">🛍️ Pratham – Custom Studio</h1>
-  <input type="text" id="search-bar" placeholder="Search product..." class="mb-4 w-full p-2 border rounded" />
-  <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
-`;
+    <h1 class="text-3xl font-bold mb-2">🛍️ Pratham – Custom Studio</h1>
+    <input type="text" id="search-bar" placeholder="Search product..." class="mb-4 w-full p-2 border rounded" />
+    <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+  `;
 
-if (!products || products.length === 0) {
-    const listEl = document.getElementById('product-list');
+  const listEl = document.getElementById('product-list');
+  const searchInput = document.getElementById('search-bar');
+
+  let filteredProducts = [...products];
+
+  if (!filteredProducts || filteredProducts.length === 0) {
     listEl.innerHTML = `<div class="text-center text-gray-500 text-lg py-10 w-full col-span-3">📭 No products yet.</div>`;
     return;
   }
 
-  const listEl = document.getElementById('product-list');
+  function displayFiltered(productsToDisplay) {
+    listEl.innerHTML = '';
 
-  const searchInput = document.getElementById('search-bar');
-let filteredProducts = [...products];
+    if (!productsToDisplay.length) {
+      listEl.innerHTML = `<div class="text-center text-gray-500 text-lg py-10 w-full col-span-3">📭 No matching products.</div>`;
+      return;
+    }
 
-function displayFiltered(productsToDisplay) {
-  listEl.innerHTML = ''; // clear
-  if (!productsToDisplay.length) {
-    listEl.innerHTML = `<div class="text-center text-gray-500 text-lg py-10 w-full col-span-3">📭 No matching products.</div>`;
-    return;
+    productsToDisplay.forEach(product => {
+      const card = document.createElement('div');
+      card.className = "bg-white rounded-xl shadow-lg p-4 transform transition duration-300 hover:scale-105 hover:shadow-2xl";
+
+      card.innerHTML = `
+        ${product.image_url ? `<img src="${product.image_url}" alt="${product.name}" class="w-full h-52 object-cover rounded-lg mb-3" />` : ''}
+        <div class="flex flex-col justify-between h-full">
+          <div>
+            <h2 class="text-lg font-semibold text-gray-800 mb-1">${product.name}</h2>
+            <p class="text-gray-600 text-sm mb-2">${formatINR(product.price)}</p>
+          </div>
+          <div class="flex justify-between gap-2 mt-auto">
+            <button class="bg-green-600 hover:bg-green-700 transition text-white px-3 py-1 rounded text-sm" onclick="orderOnWhatsApp('${product.name}', ${product.price})">
+              Order
+            </button>
+            <button class="bg-red-600 hover:bg-red-700 transition text-white px-3 py-1 rounded text-sm" onclick="deleteProduct(${product.id})">
+              Delete
+            </button>
+          </div>
+        </div>
+      `;
+
+      listEl.appendChild(card);
+    });
   }
 
-  productsToDisplay.forEach(product => {
-    const card = document.createElement('div');
-    card.className = "bg-white p-4 rounded shadow";
-    card.innerHTML = `
-      ${product.image_url ? `<img src="${product.image_url}" alt="${product.name}" class="w-full h-52 object-cover rounded-t-lg mb-3 shadow-sm" />` : ''}
-      <div class="flex flex-col justify-between h-full">
-        <div>
-          <h2 class="text-lg font-semibold text-gray-800 mb-1">${product.name}</h2>
-          <p class="text-gray-600 text-sm mb-2">${formatINR(product.price)}</p>
-        </div>
-        <div class="flex justify-between gap-2 mt-auto">
-          <button class="bg-green-600 hover:bg-green-700 transition text-white px-3 py-1 rounded text-sm" onclick="orderOnWhatsApp('${product.name}', ${product.price})">
-            Order
-          </button>
-          <button class="bg-red-600 hover:bg-red-700 transition text-white px-3 py-1 rounded text-sm" onclick="deleteProduct(${product.id})">
-            Delete
-          </button>
-        </div>
-      </div>
-    `;
-    listEl.appendChild(card);
+  displayFiltered(filteredProducts);
+
+  searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase();
+    const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+    displayFiltered(filtered);
   });
-}
-
-displayFiltered(filteredProducts);
-
-searchInput.addEventListener('input', (e) => {
-  const query = e.target.value.toLowerCase();
-  const filtered = products.filter(p => p.name.toLowerCase().includes(query));
-  displayFiltered(filtered);
-});
 }
 
 // WhatsApp order logic
