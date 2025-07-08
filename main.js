@@ -35,16 +35,20 @@ function renderProducts(products) {
     card.className = "bg-white p-4 rounded shadow";
 
     card.innerHTML = `
-  ${product.image_url ? `<img src="${product.image_url}" alt="${product.name}" class="w-full h-48 object-cover mb-2 rounded" />` : ''}
-  <h2 class="text-xl font-semibold">${product.name}</h2>
-  <p class="text-gray-700">${formatINR(product.price)}</p>
-  <div class="flex gap-2 mt-2">
-    <button class="bg-green-600 text-white px-3 py-1 rounded" onclick="orderOnWhatsApp('${product.name}', ${product.price})">
-      Order
-    </button>
-    <button class="bg-red-600 text-white px-3 py-1 rounded" onclick="deleteProduct(${product.id})">
-      Delete
-    </button>
+  ${product.image_url ? `<img src="${product.image_url}" alt="${product.name}" class="w-full h-52 object-cover rounded-t-lg mb-3 shadow-sm" />` : ''}
+  <div class="flex flex-col justify-between h-full">
+    <div>
+      <h2 class="text-lg font-semibold text-gray-800 mb-1">${product.name}</h2>
+      <p class="text-gray-600 text-sm mb-2">${formatINR(product.price)}</p>
+    </div>
+    <div class="flex justify-between gap-2 mt-auto">
+      <button class="bg-green-600 hover:bg-green-700 transition text-white px-3 py-1 rounded text-sm" onclick="orderOnWhatsApp('${product.name}', ${product.price})">
+        Order
+      </button>
+      <button class="bg-red-600 hover:bg-red-700 transition text-white px-3 py-1 rounded text-sm" onclick="deleteProduct(${product.id})">
+        Delete
+      </button>
+    </div>
   </div>
 `;
     listEl.appendChild(card);
