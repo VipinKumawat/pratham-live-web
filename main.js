@@ -1,11 +1,10 @@
 // main.js – Part 1 of 4
 import { createClient } from 'https://cdn.skypack.dev/@supabase/supabase-js';
 
-const supabaseUrl = 'https://YOUR_PROJECT_ID.supabase.co';
-const supabaseKey = 'YOUR_PUBLIC_ANON_KEY';
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabaseUrl = 'https://dgnmnyazzlmcqhbgvjfp.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRnbm1ueWF6emxtY3FoYmd2amZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5NjQ0MjcsImV4cCI6MjA2NzU0MDQyN30.VvgmXWbj7_4i0l3HsBTauapY9bO6A6cEO6Rv3oEWTr4';
 
-const root = document.getElementById('root');
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Utility: Format ₹ price
 function formatINR(price) {
