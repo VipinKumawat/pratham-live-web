@@ -199,3 +199,21 @@ window.deleteProduct = async function (id) {
     loadApp(); // refresh product list
   }
 };
+
+// 🌙 Dark Mode Toggle
+const toggleBtn = document.getElementById('darkToggle');
+
+toggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+
+  // Save preference
+  const mode = document.body.classList.contains('dark') ? 'dark' : 'light';
+  localStorage.setItem('theme', mode);
+});
+
+// On load – check preference
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark');
+  }
+});
