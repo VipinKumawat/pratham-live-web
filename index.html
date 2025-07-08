@@ -1,29 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pratham – Custom Studio</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pratham – Custom Studio</title>
 
-    <!-- Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- ✅ Dark Mode CSS Styles -->
+  <style>
+    body.dark {
+      background-color: #111827;
+      color: #f9fafb;
+    }
 
-    <!-- Favicon (Optional) -->
-    <link rel="icon" href="./assets/favicon.ico" />
+    .dark .bg-white {
+      background-color: #1f2937;
+    }
 
-    <!-- SEO Meta -->
-    <meta name="description" content="Buy premium ethnic wear at best prices from Pratham – Custom Studio. Stylish, affordable, and ready to wear.">
+    .dark .text-gray-800 {
+      color: #f9fafb;
+    }
 
-    <!-- React Bundle -->
-    <script type="module" src="./main.js" defer></script>
-  </head>
-  <body class="bg-white text-gray-900 font-sans">
-    <div id="root" class="min-h-screen flex flex-col items-center justify-center">
-      <!-- React App will mount here -->
-    </div>
- <button id="darkToggle" class="fixed top-4 right-4 bg-gray-800 text-white px-4 py-2 rounded shadow z-50">
-  🌙 Dark Mode
-</button>
- </body>
+    .dark .text-gray-700, 
+    .dark .text-gray-600 {
+      color: #d1d5db;
+    }
+
+    .dark input,
+    .dark button {
+      border-color: #4b5563;
+    }
+
+    .dark .bg-yellow-100 {
+      background-color: #374151;
+    }
+
+    .dark .border {
+      border-color: #4b5563;
+    }
+  </style>
+
+  <!-- ✅ Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- ✅ Favicon (Optional) -->
+  <link rel="icon" href="./assets/favicon.ico" />
+
+  <!-- ✅ SEO Meta Tags -->
+  <meta name="description" content="Buy premium ethnic wear at best prices from Pratham – Custom Studio. Stylish, affordable, and ready to wear.">
+  <meta name="keywords" content="Pratham, Custom Studio, Ethnic Wear, Fashion, Men's Clothing, Women's Clothing, Chikhli">
+  <meta name="author" content="Pratham Studio">
+  <meta property="og:title" content="Pratham – Custom Studio" />
+  <meta property="og:description" content="Premium ethnic wear in your city – Stylish & Affordable" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./assets/preview.jpg" />
+  <meta property="og:url" content="https://vipinkumawat.github.io/prathamstudio.github.io/" />
+
+  <!-- ✅ JS / React Style Mount -->
+  <script type="module" src="./main.js" defer></script>
+</head>
+
+<body class="bg-white text-gray-900 font-sans">
+  <div id="root" class="min-h-screen flex flex-col items-center justify-center">
+    <!-- App will render here -->
+  </div>
+
+  <!-- 🌙 Dark Mode Toggle Button -->
+  <button id="darkToggle" class="fixed top-4 right-4 bg-gray-800 text-white px-4 py-2 rounded shadow z-50">
+    🌙 Dark Mode
+  </button>
+</body>
 </html>
