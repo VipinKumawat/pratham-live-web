@@ -139,6 +139,34 @@ async function loadApp() {
 }
 
 loadApp();
+// 🧠 Smart Assistant UI
+const helpBtn = document.createElement('button');
+helpBtn.innerHTML = '🤖 Help';
+helpBtn.className = 'fixed bottom-4 right-4 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-full shadow-lg z-50';
+document.body.appendChild(helpBtn);
+
+// Chatbox
+const chatBox = document.createElement('div');
+chatBox.className = 'fixed bottom-20 right-4 w-72 bg-white rounded-lg shadow-lg p-4 text-sm border border-gray-200 z-50 hidden';
+chatBox.innerHTML = `
+  <h2 class="text-base font-semibold mb-2">💬 Need Help?</h2>
+  <ul class="space-y-2">
+    <li>📦 Delivery in 3–5 days</li>
+    <li>📏 Size chart available on WhatsApp</li>
+    <li>🧵 Custom stitching on request</li>
+    <li>💬 Chat with us directly</li>
+  </ul>
+  <button onclick="window.open('https://wa.me/919722609460','_blank')" class="mt-3 w-full bg-green-600 text-white py-1 rounded">
+    WhatsApp Chat
+  </button>
+`;
+document.body.appendChild(chatBox);
+
+// Toggle logic
+helpBtn.addEventListener('click', () => {
+  chatBox.classList.toggle('hidden');
+});
+
 // 🗑 Delete product function
 window.deleteProduct = async function (id) {
   const confirmDelete = confirm("Are you sure you want to delete this product?");
