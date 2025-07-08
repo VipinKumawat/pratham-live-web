@@ -36,12 +36,17 @@ function renderProducts(products) {
     card.className = "bg-white p-4 rounded shadow";
 
     card.innerHTML = `
-      <h2 class="text-xl font-semibold">${product.name}</h2>
-      <p class="text-gray-700">${formatINR(product.price)}</p>
-      <button class="mt-2 bg-green-600 text-white px-3 py-1 rounded" onclick="orderOnWhatsApp('${product.name}', ${product.price})">
-        Order on WhatsApp
-      </button>
-    `;
+  <h2 class="text-xl font-semibold">${product.name}</h2>
+  <p class="text-gray-700">${formatINR(product.price)}</p>
+  <div class="flex gap-2 mt-2">
+    <button class="bg-green-600 text-white px-3 py-1 rounded" onclick="orderOnWhatsApp('${product.name}', ${product.price})">
+      Order
+    </button>
+    <button class="bg-red-600 text-white px-3 py-1 rounded" onclick="deleteProduct(${product.id})">
+      Delete
+    </button>
+  </div>
+`;
 
     listEl.appendChild(card);
   });
