@@ -77,17 +77,40 @@ function renderAdminPanel() {
   const form = document.getElementById('product-form');
   const status = document.getElementById('admin-status');
 
-  form.addEventListener('submit', async (e) => {
+form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = document.getElementById('prod-name').value;
     const price = parseInt(document.getElementById('prod-price').value);
+    const imageFile = document.getElementById('prod-image').files[0];
 
-    const { error } = await supabase.from('products').insert([{ name, price }]);
+    let imageUrl = '';
+
+    if (imageFile) {
+      const filePath = `${Date.now()}_${imageFile.name}`;
+      const { data, error: uploadError } = await supabase
+        .storage
+        .from('product-images')
+        .upload(filePath, imageFile);
+
+      if (uploadError) {
+        status.textContent = "❌ Image upload failed.";
+        return;
+      }
+
+      const { publicURL } = supabase.storage
+        .from('product-images')
+        .getPublicUrl(filePath);
+
+      imageUrl = publicURL;
+    }
+
+    const { error } = await supabase.from('products').insert([{ name, price, image_url: imageUrl }]);
+
     if (error) {
       status.textContent = "❌ Error adding product.";
     } else {
       status.textContent = "✅ Product added.";
-      loadApp(); // reload updated list
+      loadApp(); // refresh
     }
   });
 }
