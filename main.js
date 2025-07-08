@@ -28,6 +28,12 @@ function renderProducts(products) {
     <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
   `;
 
+if (!products || products.length === 0) {
+    const listEl = document.getElementById('product-list');
+    listEl.innerHTML = `<div class="text-center text-gray-500 text-lg py-10 w-full col-span-3">📭 No products yet.</div>`;
+    return;
+  }
+
   const listEl = document.getElementById('product-list');
 
   products.forEach(product => {
