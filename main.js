@@ -24,9 +24,10 @@ async function fetchProducts() {
 
 function renderProducts(products) {
   root.innerHTML = `
-    <h1 class="text-3xl font-bold mb-4">🛍️ Pratham – Custom Studio</h1>
-    <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
-  `;
+  <h1 class="text-3xl font-bold mb-2">🛍️ Pratham – Custom Studio</h1>
+  <input type="text" id="search-bar" placeholder="Search product..." class="mb-4 w-full p-2 border rounded" />
+  <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+`;
 
 if (!products || products.length === 0) {
     const listEl = document.getElementById('product-list');
