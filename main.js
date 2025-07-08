@@ -66,6 +66,7 @@ function renderAdminPanel() {
     <form id="product-form" class="space-y-2">
       <input type="text" id="prod-name" placeholder="Product name" required class="w-full p-2 border rounded" />
       <input type="number" id="prod-price" placeholder="Price" required class="w-full p-2 border rounded" />
+      <input type="file" id="prod-image" accept="image/*" class="w-full p-2 border rounded" />
       <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Add Product</button>
     </form>
     <p id="admin-status" class="text-green-700 mt-2"></p>
