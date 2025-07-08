@@ -37,29 +37,47 @@ if (!products || products.length === 0) {
 
   const listEl = document.getElementById('product-list');
 
-  products.forEach(product => {
+  const searchInput = document.getElementById('search-bar');
+let filteredProducts = [...products];
+
+function displayFiltered(productsToDisplay) {
+  listEl.innerHTML = ''; // clear
+  if (!productsToDisplay.length) {
+    listEl.innerHTML = `<div class="text-center text-gray-500 text-lg py-10 w-full col-span-3">📭 No matching products.</div>`;
+    return;
+  }
+
+  productsToDisplay.forEach(product => {
     const card = document.createElement('div');
     card.className = "bg-white p-4 rounded shadow";
-
     card.innerHTML = `
-  ${product.image_url ? `<img src="${product.image_url}" alt="${product.name}" class="w-full h-52 object-cover rounded-t-lg mb-3 shadow-sm" />` : ''}
-  <div class="flex flex-col justify-between h-full">
-    <div>
-      <h2 class="text-lg font-semibold text-gray-800 mb-1">${product.name}</h2>
-      <p class="text-gray-600 text-sm mb-2">${formatINR(product.price)}</p>
-    </div>
-    <div class="flex justify-between gap-2 mt-auto">
-      <button class="bg-green-600 hover:bg-green-700 transition text-white px-3 py-1 rounded text-sm" onclick="orderOnWhatsApp('${product.name}', ${product.price})">
-        Order
-      </button>
-      <button class="bg-red-600 hover:bg-red-700 transition text-white px-3 py-1 rounded text-sm" onclick="deleteProduct(${product.id})">
-        Delete
-      </button>
-    </div>
-  </div>
-`;
+      ${product.image_url ? `<img src="${product.image_url}" alt="${product.name}" class="w-full h-52 object-cover rounded-t-lg mb-3 shadow-sm" />` : ''}
+      <div class="flex flex-col justify-between h-full">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-800 mb-1">${product.name}</h2>
+          <p class="text-gray-600 text-sm mb-2">${formatINR(product.price)}</p>
+        </div>
+        <div class="flex justify-between gap-2 mt-auto">
+          <button class="bg-green-600 hover:bg-green-700 transition text-white px-3 py-1 rounded text-sm" onclick="orderOnWhatsApp('${product.name}', ${product.price})">
+            Order
+          </button>
+          <button class="bg-red-600 hover:bg-red-700 transition text-white px-3 py-1 rounded text-sm" onclick="deleteProduct(${product.id})">
+            Delete
+          </button>
+        </div>
+      </div>
+    `;
     listEl.appendChild(card);
   });
+}
+
+displayFiltered(filteredProducts);
+
+searchInput.addEventListener('input', (e) => {
+  const query = e.target.value.toLowerCase();
+  const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+  displayFiltered(filtered);
+});
 }
 
 // WhatsApp order logic
