@@ -35,6 +35,7 @@ function renderProducts(products) {
     card.className = "bg-white p-4 rounded shadow";
 
     card.innerHTML = `
+  ${product.image_url ? `<img src="${product.image_url}" alt="${product.name}" class="w-full h-48 object-cover mb-2 rounded" />` : ''}
   <h2 class="text-xl font-semibold">${product.name}</h2>
   <p class="text-gray-700">${formatINR(product.price)}</p>
   <div class="flex gap-2 mt-2">
@@ -46,7 +47,6 @@ function renderProducts(products) {
     </button>
   </div>
 `;
-
     listEl.appendChild(card);
   });
 }
