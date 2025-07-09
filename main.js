@@ -118,10 +118,11 @@ function renderAdminPanel() {
     if (imageFile) {
       const filePath = `${Date.now()}_${imageFile.name}`;
       const { error: uploadError } = await supabase.storage.from('product-images').upload(filePath, imageFile);
-      if (uploadError) {
-        status.textContent = "❌ Image upload failed.";
-        return;
-      }
+     if (uploadError) {
+  console.error("Upload error:", uploadError.message);
+  status.textContent = "❌ Upload failed: " + uploadError.message;
+  return;
+}
       const { publicURL } = supabase.storage.from('product-images').getPublicUrl(filePath);
       imageUrl = publicURL;
     }
